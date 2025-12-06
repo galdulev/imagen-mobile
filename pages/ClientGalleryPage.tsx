@@ -62,18 +62,28 @@ export const ClientGalleryPage: React.FC = () => {
              "{sharedGallery.message}"
            </p>
            
-           {/* Branding Badge */}
-           <div className="flex items-center gap-3 bg-bg-secondary border border-white/5 pr-4 pl-2 py-1.5 rounded-full mt-2">
-              <img 
-                src="/imagen-mobile/yoni-profile.jpg" 
-                alt="Yoni Laufer" 
-                className="w-8 h-8 rounded-full object-cover"
-              />
+           {/* Instagram-style Branding Badge */}
+           <a 
+             href="https://www.instagram.com/yoni_laufer/" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             className="flex items-center gap-3 bg-bg-secondary border border-white/5 pr-4 pl-1.5 py-1.5 rounded-full mt-2 hover:bg-bg-tertiary transition-colors"
+           >
+              {/* Instagram gradient ring */}
+              <div className="p-[2px] rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600">
+                <div className="p-[2px] rounded-full bg-bg-secondary">
+                  <img 
+                    src="/imagen-mobile/yoni-profile.jpg" 
+                    alt="Yoni Laufer" 
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                </div>
+              </div>
               <div className="flex flex-col items-start">
                 <span className="text-[10px] text-text-tertiary uppercase font-bold">Captured by</span>
                 <span className="text-xs text-white font-semibold">Yoni Laufer</span>
               </div>
-           </div>
+           </a>
         </div>
 
         {/* 3. Action Bar (Viral Loop) */}
