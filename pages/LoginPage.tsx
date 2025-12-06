@@ -35,7 +35,7 @@ export const LoginPage: React.FC = () => {
             }}
           />
           <h2 className="text-xl font-medium text-text-primary">Your Photography. Everywhere.</h2>
-          <p className="text-text-secondary text-sm max-w-[260px]">Access your cloud library, cull on the go, and deliver stunning galleries.</p>
+          <p className="text-text-secondary text-sm max-w-[260px]">Access your cloud library and deliver stunning galleries.</p>
         </div>
 
         {/* Form */}

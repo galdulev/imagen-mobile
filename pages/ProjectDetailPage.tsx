@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Share2, Flag, Star, Heart, CheckCircle2 } from 'lucide-react';
+import { Share2, Heart, CheckCircle2 } from 'lucide-react';
 import { Header } from '../components/layout/Header';
-import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { PhotoViewer } from '../components/gallery/PhotoViewer';
 import { ShareSheet } from '../components/share/ShareSheet';
 import { projects, projectPhotos } from '../data/mockData';
-import { Photo, ColorLabel } from '../types';
 
 export const ProjectDetailPage: React.FC = () => {
   const { id } = useParams();
@@ -16,6 +14,11 @@ export const ProjectDetailPage: React.FC = () => {
   
   const [showShare, setShowShare] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+
+  // Scroll to top when entering the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!project) return <div>Project not found</div>;
 
@@ -35,18 +38,6 @@ export const ProjectDetailPage: React.FC = () => {
     }
   };
 
-  // Helper for color labels
-  const getColorClass = (label: ColorLabel) => {
-    switch (label) {
-      case 'red': return 'bg-red-500';
-      case 'yellow': return 'bg-yellow-500';
-      case 'green': return 'bg-green-500';
-      case 'blue': return 'bg-blue-500';
-      case 'purple': return 'bg-purple-500';
-      default: return 'bg-transparent';
-    }
-  };
-
   // Count favorites for social proof/upsell indicator
   const clientFavorites = photos.filter(p => p.favorited).length;
 
@@ -62,33 +53,38 @@ export const ProjectDetailPage: React.FC = () => {
         }
       />
 
-      {/* Action Header - The "One Stop Shop" Ecosystem Feel */}
-      <div className="px-4 py-4 bg-bg-secondary border-b border-border-default mb-1">
-        <div className="flex justify-between items-center mb-4">
-           <div className="flex flex-col">
-             <h2 className="text-sm font-semibold text-text-primary">{project.profileName}</h2>
-             <span className="text-xs text-text-tertiary">{project.photoCount} photos • 1.2GB</span>
-           </div>
-           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-teal/10 rounded-full border border-teal/20">
-              <CheckCircle2 size={12} className="text-teal" />
-              <span className="text-[10px] font-bold uppercase tracking-wide text-teal">Synced to Cloud</span>
-           </div>
-        </div>
-
-        {/* Mini Dashboard for Engagement */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="bg-bg-tertiary/50 rounded-lg p-2.5 flex items-center gap-3 border border-white/5">
-            <div className="bg-coral/20 p-2 rounded-full text-coral">
-              <Heart size={14} className="fill-coral" />
+      {/* Project Info Bar */}
+      <div className="px-4 py-3 bg-bg-secondary/80 backdrop-blur-sm border-b border-border-default">
+        <div className="flex items-center justify-between">
+          {/* Left: Profile & Stats */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-coral/20 to-coral/5 flex items-center justify-center border border-coral/20">
+              <span className="text-sm font-bold text-coral">{project.profileName.charAt(0)}</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-text-primary leading-none">{clientFavorites}</span>
-              <span className="text-[10px] text-text-secondary uppercase">Client Faves</span>
+              <h2 className="text-sm font-semibold text-text-primary">{project.profileName}</h2>
+              <div className="flex items-center gap-2 text-xs text-text-tertiary">
+                <span>{project.photoCount} photos</span>
+                <span className="w-1 h-1 rounded-full bg-text-tertiary/50" />
+                <span>1.2GB</span>
+                {clientFavorites > 0 && (
+                  <>
+                    <span className="w-1 h-1 rounded-full bg-text-tertiary/50" />
+                    <span className="flex items-center gap-1 text-coral">
+                      <Heart size={10} className="fill-coral" />
+                      {clientFavorites}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-          <Button size="sm" onClick={() => setShowShare(true)} className="h-full shadow-lg shadow-coral/10">
-            Share Gallery
-          </Button>
+          
+          {/* Right: Sync Status */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-teal/10 rounded-full border border-teal/20">
+            <CheckCircle2 size={12} className="text-teal" />
+            <span className="text-[10px] font-medium text-teal">Synced</span>
+          </div>
         </div>
       </div>
 
@@ -113,49 +109,8 @@ export const ProjectDetailPage: React.FC = () => {
                 <Heart size={10} className="fill-white" />
               </div>
             )}
-
-            {/* Professional Culling Metadata Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent pt-4 pb-1 px-1.5 flex items-end justify-between">
-              
-              {/* Left: Flag & Rating */}
-              <div className="flex items-center gap-1.5">
-                {/* Flag */}
-                {photo.flag !== 'none' && (
-                  <div className={`
-                    flex items-center justify-center w-3 h-3
-                    ${photo.flag === 'rejected' ? 'text-text-secondary' : 'text-white'}
-                  `}>
-                    {photo.flag === 'picked' ? <Flag size={10} className="fill-white" /> : <XMarkIcon />}
-                  </div>
-                )}
-                
-                {/* Stars */}
-                {photo.rating > 0 && (
-                  <div className="flex items-center gap-0.5">
-                    <span className="text-[9px] font-bold text-white">{photo.rating}</span>
-                    <Star size={8} className="fill-white text-white" />
-                  </div>
-                )}
-              </div>
-
-              {/* Right: Color Label */}
-              {photo.colorLabel !== 'none' && (
-                <div className={`w-2 h-2 rounded-full shadow-sm ${getColorClass(photo.colorLabel)} border border-white/10`} />
-              )}
-              
-            </div>
           </div>
         ))}
-      </div>
-
-      {/* Floating Share Button (Redundant but good for long scrolls) */}
-      <div className="fixed bottom-20 right-4 z-20">
-        <button 
-           onClick={() => setShowShare(true)}
-           className="w-14 h-14 bg-coral hover:bg-coral-hover text-white rounded-full shadow-2xl shadow-coral/40 flex items-center justify-center transition-transform active:scale-90"
-        >
-          <Share2 size={24} />
-        </button>
       </div>
 
       {/* Share Modal */}
@@ -181,9 +136,3 @@ export const ProjectDetailPage: React.FC = () => {
     </div>
   );
 };
-
-const XMarkIcon = () => (
-  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-  </svg>
-);
