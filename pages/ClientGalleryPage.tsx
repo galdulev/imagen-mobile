@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Share2, Download, Camera } from 'lucide-react';
+import { Heart, Share2, Download } from 'lucide-react';
 import { projectPhotos, sharedGallery } from '../data/mockData';
 import { PhotoViewer } from '../components/gallery/PhotoViewer';
 import { Button } from '../components/common/Button';
@@ -64,12 +64,14 @@ export const ClientGalleryPage: React.FC = () => {
            
            {/* Branding Badge */}
            <div className="flex items-center gap-3 bg-bg-secondary border border-white/5 pr-4 pl-2 py-1.5 rounded-full mt-2">
-              <div className="w-8 h-8 rounded-full bg-bg-tertiary flex items-center justify-center text-text-secondary">
-                 <Camera size={14} />
-              </div>
+              <img 
+                src="/imagen-mobile/yoni-profile.jpg" 
+                alt="Yoni Laufer" 
+                className="w-8 h-8 rounded-full object-cover"
+              />
               <div className="flex flex-col items-start">
                 <span className="text-[10px] text-text-tertiary uppercase font-bold">Captured by</span>
-                <span className="text-xs text-white font-semibold">{sharedGallery.photographerName}</span>
+                <span className="text-xs text-white font-semibold">Yoni Laufer</span>
               </div>
            </div>
         </div>
@@ -135,7 +137,7 @@ export const ClientGalleryPage: React.FC = () => {
             <Heart size={16} className="fill-coral text-coral" />
             <span className="text-sm font-semibold text-text-primary">Favorites ({favoriteCount})</span>
             <div className="w-px h-4 bg-white/20 mx-1" />
-            <span className="text-xs font-medium text-teal cursor-pointer hover:text-white transition-colors">Send to Photographer</span>
+            <span className="text-xs font-medium text-teal cursor-pointer hover:text-white transition-colors">Send to Yoni</span>
           </div>
         </div>
       )}
