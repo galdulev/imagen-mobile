@@ -62,28 +62,22 @@ export const ClientGalleryPage: React.FC = () => {
              "{sharedGallery.message}"
            </p>
            
-           {/* Instagram-style Branding Badge */}
-           <a 
-             href="https://www.instagram.com/yoni_laufer/" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             className="flex items-center gap-3 bg-bg-secondary border border-white/5 pr-4 pl-1.5 py-1.5 rounded-full mt-2 hover:bg-bg-tertiary transition-colors"
-           >
-              {/* Instagram gradient ring */}
+           {/* Photographer Branding Badge */}
+           <div className="flex items-center gap-3 bg-bg-secondary border border-white/5 pr-4 pl-1.5 py-1.5 rounded-full mt-2">
               <div className="p-[2px] rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600">
                 <div className="p-[2px] rounded-full bg-bg-secondary">
                   <img 
-                    src="/imagen-mobile/yoni-profile.jpg" 
-                    alt="Yoni Laufer" 
+                    src="/imagen-mobile/gal.jpg" 
+                    alt="Gal Dulev" 
                     className="w-8 h-8 rounded-full object-cover"
                   />
                 </div>
               </div>
               <div className="flex flex-col items-start">
                 <span className="text-[10px] text-text-tertiary uppercase font-bold">Captured by</span>
-                <span className="text-xs text-white font-semibold">Yoni Laufer</span>
+                <span className="text-xs text-white font-semibold">Gal Dulev</span>
               </div>
-           </a>
+           </div>
         </div>
 
         {/* 3. Action Bar (Viral Loop) */}
@@ -147,7 +141,7 @@ export const ClientGalleryPage: React.FC = () => {
             <Heart size={16} className="fill-coral text-coral" />
             <span className="text-sm font-semibold text-text-primary">Favorites ({favoriteCount})</span>
             <div className="w-px h-4 bg-white/20 mx-1" />
-            <span className="text-xs font-medium text-teal cursor-pointer hover:text-white transition-colors">Send to Yoni</span>
+            <span className="text-xs font-medium text-teal cursor-pointer hover:text-white transition-colors">Send to Gal</span>
           </div>
         </div>
       )}
