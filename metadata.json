@@ -1,0 +1,5 @@
+{
+  "name": "Imagen Mobile Companion",
+  "description": "A mobile-first clickable prototype for Imagen AI, allowing photographers to view projects and share galleries with clients.",
+  "requestFramePermissions": []
+}
